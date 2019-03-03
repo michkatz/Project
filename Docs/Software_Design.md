@@ -2,55 +2,35 @@
 
 The purpose of this software program is to predict the Density of State (DOS) and other electronic properties of new materials based on an X-Ray Diffraction (XRD) datafiles, using a machine learning algorithm. Below we describe the use cases within the program and the component to accomodate that use case.
 
-### Mine data from the Materials Project Database
-   The XRD and DOS data off of the Materials Project Database (MPD) will be the source of training and test datasets.
+## 1.	Upload XRD data into the program
+a.	Mine data from the Materials Project Database
+i. 	Inputs: JSON files from MPD
+ii.	Outputs: Pandas dataframe
+b.	Cleaning the data
+i.	Inputs: Pandas dataframe with all the messy data
+ii.	Outputs: Pandas dataframe with only the needed data in a format that is readable to the ML program
 
-   ***MatMiner*** is the software tool used to access the data on the MPD.
+## 2.	Use the data to train the algorithm
+a.	Separating training dataset from test dataset
+i.	Input: Cleaned Pandas dataframe
+ii.	Output: Two separate sets for training and testing
+b.	Running the training set through a machine learning algorithm
+i.	Input: Training set with both XRD and DOS data
+ii.	Output: Estimated DOS
+c.	Running the test set through the same algorithm
+i.	Input: Testing set with both XRD and DOS data
+ii.	Output: Estimated DOS
+d.	Verifying the statistical reliability of the predicted results
+i.	Input: Test-Estimated DOS and actual DOS
+ii.	Output: Statistical comparisons
 
-
-
-### Uploading JSON (XRD) data file
-XRD data is in the format of a .json file. When this program the user wants to predict the DOS of their material, they will upload a .json file into the program.
-
-***TBD*** on the program we use or create to do that.
-
-
-### Cleaning the data
-In either data source, the data will need to be cleaned and edited such that it is presentable to the machine learning model.
-
-***TBD*** on the method we use to accomplish this. It will likely depend heavily on the machine learning tool we choose.
-
-
-### Separating training dataset from test dataset
-This is fairly simple, and the data will just be divided into 80% training and 20% test datasets.
-
-***TBD*** on if we use a tool to do this or if we just write our own code.
-
-
-### Running the training set through a machine learning algorithm
-This will train the algorithm to predict the DOS with XRD data.
-
-***Scikitlearn, Keras, and Tensorflow*** are possible candidates for the machine learning algorithm we use. If we end up running the data through multiple tools to select the best one, we may end up using all three.
-
-
-### Running the test set through the same alogrithm
-This will test the algorithm to make sure it can accruately predict the DOS with XRD data.
-
-***Scikitlearn, Keras, and Tensorflow*** are possible candidates for the machine learning algorithm we use. If we end up running the data through multiple tools to select the best one, we may end up using all three.
-
-
-#### Possible Use Case: Running both the training set and test set through multiple machine learning algorithms to determine the best model
-
-### Verifying the statistical reliability of the predicted results
-This will quantitiatively determine if the machine learning algorithm is functioning correctly and is appropriate for the dataset.  
-
-***TBD*** on which statistical methods we use to accomplish this.
-
-
-### Visualize the predicted data
-This will create a graph of the DOS can can be saved.
-
-***TBD*** on which visualization package we use. It will likely depend on the complexity of the data, which we are currently unsure of.
-
-
-#### Possible Use Case: Develope a functional User Interface that allows users to access the software without previous coding experience.
+## 3.	Use the data to predict the DOS of a new XRD file
+a.	Running the unknown set through the same algorithm
+i.	Input: XRD JSON file
+ii.	Output: DOS JSON file
+b.	Visualize the predicted data
+i.	Input: DOS JSON file
+ii.	Output: A graph
+c.	Present data is a save-able format
+i.	Input: DOS JSON file
+ii.	Output: DOS csv file
