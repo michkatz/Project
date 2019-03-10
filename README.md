@@ -1,2 +1,2 @@
-# Project
-DIRECT Project 2019
+
+logo.png
