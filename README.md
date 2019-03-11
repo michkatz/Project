@@ -10,15 +10,15 @@ This toolkit is maintained by a group of gradaute students at the University of 
 
 # Use Cases
 This toolkit is designed for three major use cases. More detailed explanations can be found in `Software_Design` under `docs`. 
-1. Upload XRD data into the toolkit. 
-    At the current state of development this data needs to be cleaned prior to uploading into the toolkit. The ten most intense peaks and their corresponding 2$\theta$ values should be organized in a 20 X 1 Numpy array, with intensities listed first and corresponding 2$\theta$ values following. 
+### 1. Upload XRD data into the toolkit. 
+ At the current state of development this data needs to be cleaned prior to uploading into the toolkit. The ten most intense peaks and their corresponding 2$\theta$ values should be organized in a 20 X 1 Numpy array, with intensities listed first and corresponding 2$\theta$ values following. 
     
-2. Use XRD data from the Materials Project Database to trian the algorithm.
+### 2. Use XRD data from the Materials Project Database to trian the algorithm.
 
-3. Estimate the bandgap and Fermi energy of the material based on XRD peaks. 
+### 3. Estimate the bandgap and Fermi energy of the material based on XRD peaks. 
 
-## Installation
-### Dependencies
+# Installation
+## Dependencies
 
 xrdos requires:
  
@@ -30,8 +30,12 @@ xrdos requires:
 * Scikit Learn (v>)
 
 
-### User Installation
+## User Installation
 PENDING
 
-### Basic Use Instructions
+# Tips to use
 PENDING
+
+# Contact
+
+katzm@uw.edu
