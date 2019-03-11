@@ -1,2 +1,2 @@
-![](logo.png =100x20)
+![](logo.png =100x200)
 xrdos is a python toolkit. 
