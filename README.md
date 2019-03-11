@@ -1,4 +1,4 @@
-![](logo.png)
+![]logo.png
 
 xrdos is a Python toolkit that can be used to estimate the density of state (DOS) of new materials using x-ray diffraction (XRD) data. The toolkit uses a neural network machine learning model to develop a relationship between XRD peaks and a number of electronic properties related to denisty of state. 
 
