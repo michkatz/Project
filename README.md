@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=logo.png>
+  <img src=images/logo.png>
 </p>
 
 [![Build Status](https://travis-ci.org/michkatz/xrdos.svg?branch=master)](https://travis-ci.org/michkatz/xrdos)
