@@ -8,8 +8,6 @@ xrdos is a Python toolkit that can be used to estimate the density of state (DOS
 
 Currently the program can estimate bandgap and the Fermi energy of the material. The training data is pulled from the Materials Project Database. 
 
-
-
 This toolkit is maintained by a group of gradaute students at the University of Washington in Seattle. 
 
 # Use Cases
@@ -35,10 +33,14 @@ xrdos requires:
 
 
 ## User Installation
-PENDING
+xrdos is in the process of becoming pip installable. Until this is successfully set up, this program can be used by cloning the git respository. 
 
-# Tips to use
-PENDING
+
+# Data Tips
+The data can be very time consuming to download for the Materials Project Database. The module `get_data_xrdos` can be used to download the data with any desired adjustments, but the data used to train the model is already included as a csv in this repository. 
+
+If the data is downloaded directly from the Materials Project Database, we suggest going through this arduous process only once and saving the data as a csv. 
+
 
 # Contact
 
