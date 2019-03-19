@@ -17,12 +17,13 @@ See Software Design under `docs` for more information.
 
 xrdos requires:
  
-* Python (v>)
-* Keras (v>)
-* Matminer (v>)
-* Pandas (v>)
-* Numpy (v>)
-* Scikit Learn (v>)
+* Python (v>3.6)
+* Keras (v>2.2.4)
+* TensorFlow (v>1.13.1)
+* Matminer (v> 0.5.1)
+* Pandas (v>0.24.1)
+* Numpy (v>1.16.2)
+* Scikit Learn (v>0.20.2)
 
 
 ## User Installation
