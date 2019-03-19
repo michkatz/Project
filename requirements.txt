@@ -6,3 +6,4 @@ scikit-learn
 matminer
 tensorflow
 keras
+statsmodels
