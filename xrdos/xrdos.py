@@ -126,7 +126,7 @@ def train_model(df_train, df_validation, model, n, yes):
        Note: can only predict data which has been scaled with the scaler this
        function returns"""
     # generating scaled data and their respective scaler objects
-    t_properties, t_predictors_scaled, t_predictors_scaler = split_and_scale(df_train, n, yes) # noqa
+    t_properties, t_predictors_scaled, t_predictors_scaler, t_properties_scalar = split_and_scale(df_train, n, yes) # noqa
     v_properties, v_predictors_scaled, v_predictors_scaler = split_and_scale(df_validation, n, yes) # noqa
     # supervised learning of predictors and properties to fit model,
     # note: keras does not take pd.DataFrames for
