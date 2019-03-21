@@ -4,7 +4,7 @@ from ast import literal_eval
 from tqdm import tqdm
 from pydash import py_
 from matminer.data_retrieval.retrieve_MP import MPDataRetrieval
-mpdr = MPDataRetrieval()  # or mpdr = MPDataRetrieval(api_key='YOUR_KEY')
+mpdr = MPDataRetrieval(api_key='3AdDSGEqlThTHVeu')
 
 
 def Retrieve_data(bg_lower, bg_upper, raw_name):
