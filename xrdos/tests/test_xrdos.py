@@ -67,7 +67,6 @@ class test_xrdos(unittest.TestCase):
     def test_train_model(self):
         data = {'column1': [2, 2, 3], 'column2': [1, 3, 5]}
         df = pd.DataFrame(data)
-        data1 = {'column1': [2.0, 2.0, 3.0], 'column2': [1.0, 3.0, 5.0]}
         df1 = pd.DataFrame(data)
         model, accuracy, scaler = xrdos.train_model(
             df, df1, xrdos.linear_regression(), 1, [False, 1, False])
