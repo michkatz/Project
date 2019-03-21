@@ -5,10 +5,10 @@
 
 import pandas as pd
 import numpy as np
-# import sklearn
+import sklearn
 import statsmodels.formula.api as smf
 import matplotlib.pyplot as plt
-# import keras
+import keras
 from sklearn import preprocessing, metrics
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
@@ -16,8 +16,8 @@ from keras.models import Sequential    # Model,
 from keras.wrappers.scikit_learn import KerasRegressor
 from keras.layers import Dense  # Activation, Input,
 from keras import optimizers
-# from keras import regularizers
-# from keras.regularizers import Regularizer
+from keras import regularizers
+from keras.regularizers import Regularizer
 
 
 # NOTE: none of these fxns are meant for single point input, input should
