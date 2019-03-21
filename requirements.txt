@@ -7,3 +7,4 @@ matminer
 tensorflow
 keras
 statsmodels
+pydash
