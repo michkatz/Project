@@ -45,7 +45,7 @@ class test_xrdos(unittest.TestCase):
     def test_split_and_scale(self):
         data = {'column1': [2, 2, 3], 'column2': [1, 3, 5]}
         df = pd.DataFrame(data)
-        x, y, z = xrdos.split_and_scale(df, 1, (False, 1, False))
+        x, y = xrdos.split_and_scale(df, 1, (False, 1, False))
         assert x[0] == 1
         assert y.iloc[2].iloc[0] == 1
         return
@@ -71,15 +71,15 @@ class test_xrdos(unittest.TestCase):
         assert int(model.predict(scaler.transform(a))[0][0]) == 2
         assert type(model) == sklearn.linear_model.base.LinearRegression
         return
-    
+
     def test_model_prediction(self):
         data = {'column1': [2, 3, 4], 'column2': [1, 3, 5],'column3': [1, 5, 10] }
         df = pd.DataFrame(data)
-        properties, predictors = xrdos.split(df, 1) 
+        properties, predictors = xrdos.split(df, 1)
         predictors = pd.DataFrame(predictors)
         model = xrdos.linear_regression()
         fitted_model = model.fit(predictors, properties)
-        scaler = preprocessing.MinMaxScaler() 
+        scaler = preprocessing.MinMaxScaler()
         scaler.fit(properties)
         prediction, accuracy = xrdos.model_prediction(df, fitted_model, scaler, 1, [False, 1, True])
         assert int(prediction[0][0]) == -2
