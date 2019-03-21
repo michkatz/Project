@@ -39,7 +39,6 @@ def single_plot(x, y, figsize, title, xtitle, ytitle, xticks, yticks):
     plt.yticks(yticks[0], size=yticks[1])
     plt.xlabel(xtitle[0], size=xtitle[1])
     plt.ylabel(ytitle[0], size=ytitle[1])
-    ax1.set_xlim(0, 6)
     ax1.scatter(x, y, marker='.', alpha=0.7)
     return
 
@@ -199,3 +198,20 @@ def coefficient_statistics(df):
     fit_object = smf.ols(formula='band_gap ~ amplitude_0 + amplitude_1 + amplitude_2 + amplitude_3 + amplitude_4 + amplitude_5 + amplitude_6 + amplitude_7 + amplitude_8 + amplitude_9 + two_theta_1+ two_theta_2 + two_theta_3 + two_theta_4 + two_theta_5 + two_theta_6 + two_theta_7 + two_theta_8 + two_theta_9', data=df)  # noqa
     ft = fit_object.fit()
     return ft.summary()
+
+def train_test_split(df):
+    """This function splits the input dataframe into train,
+    validation and test groups. For our purposes, we used
+    a 70% train, 15% validation and 15% test.
+    df: dataframe containing all data to be
+    used for model.
+    returns df_train, df_val, df_test"""
+    df.drop(columns = 'Unnamed: 0',inplace = True)
+    train, test_and_val = sklearn.model_selection.train_test_split(df,
+test_size=.30)
+    test, val = sklearn.model_selection.train_test_split(test_and_val,
+test_size=.5)
+    df_train = pd.DataFrame(train)
+    df_val = pd.DataFrame(val)
+    df_test = pd.DataFrame(test)
+    return df_train, df_val, df_test
