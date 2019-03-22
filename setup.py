@@ -1,4 +1,4 @@
-    from setuptools import setup
+from setuptools import setup
 
 setup(name='xrdos',
       version='0.1',
@@ -9,9 +9,3 @@ setup(name='xrdos',
       license='MIT',
       packages=['xrdos'],
       zip_safe=False)
-
-
-
-
-
-)

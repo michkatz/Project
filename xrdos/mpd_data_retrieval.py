@@ -1,19 +1,10 @@
-
-# coding: utf-8
-
-# In[11]:
-
-
 import numpy as np
 import pandas as pd
 from ast import literal_eval
 from tqdm import tqdm
 from pydash import py_
 from matminer.data_retrieval.retrieve_MP import MPDataRetrieval
-mpdr = MPDataRetrieval()  # or mpdr = MPDataRetrieval(api_key='YOUR_KEY')
-
-
-# In[64]:
+mpdr = MPDataRetrieval(api_key='3AdDSGEqlThTHVeu')
 
 
 def Retrieve_data(bg_lower, bg_upper, raw_name):
@@ -51,9 +42,6 @@ def Retrieve_data(bg_lower, bg_upper, raw_name):
     results.to_csv(raw_name + '.csv', sep='\t')
 
 
-# In[6]:
-
-
 def Extract_data(MPD_data_row):
     """
     Extracts the relevant XRD data from the dictionary obtained from MPD
@@ -66,13 +54,13 @@ def Extract_data(MPD_data_row):
     Returns
     -------
     clean_df: Pandas dataframe
-        The top 10 XRD peaks and their corresponding two theta values
-        for the material
+        The top 10 XRD peaks and their corresponding
+        two theta values for the material
     """
 
-    # Extracting out the amplitude and two theta values from the dictionary
-    # contained inside the received data then turning it into a pandas
-    # dataframe.
+    # Extracting out the amplitude and two theta values
+    # from the dictionary contained inside the received data
+    # then turning it into a pandas dataframe
     dirty_df = pd.DataFrame(
         literal_eval(
             MPD_data_row['xrd.Cu'])['pattern'], columns=literal_eval(
@@ -87,13 +75,10 @@ def Extract_data(MPD_data_row):
     return clean_df
 
 
-# In[15]:
-
-
 def Reformat_data(MPD_data_row):
     """
-    Reformats the cleaned data obtained from the extract_data function
-    into a dictionary
+    Reformats the cleaned data obtained from
+    the extract_data function into a dictionary
 
     Parameters
     ----------
@@ -103,8 +88,8 @@ def Reformat_data(MPD_data_row):
     Returns
     -------
     clean_df: Pandas dataframe
-        The top 10 XRD peaks and their corresponding two theta values
-        for the material
+        The top 10 XRD peaks and their corresponding two theta
+        values for the material
     """
 
     # Cleaning data and creating empty dictionary
@@ -123,9 +108,6 @@ def Reformat_data(MPD_data_row):
             mat_dict[theta_key] = clean_df['two_theta'][i - 10]
 
     return mat_dict
-
-
-# In[61]:
 
 
 def Produce_data(raw_name, processed_name):
@@ -148,6 +130,7 @@ def Produce_data(raw_name, processed_name):
     dos_data.set_index(['material_id'], inplace=True)
 
     # Loop to run through each row of the dataframe
+    # tqdm is used only to monitor progress during testing. MAY NEED TO REMOVE
     for i in tqdm(range(len(MPD_data_raw))):
 
         # Conditional to skip over materials with less than 10 XRD peaks
@@ -166,7 +149,7 @@ def Produce_data(raw_name, processed_name):
         else:
 
             # Replaces rows that failed the conditional with NaN
-            # This is for easy removal of the rows
+            # This is for easy removal od the rows
             dos_data.iloc[i] = float('nan')
 
     # Creating the final dataframe from the obtained XRD and DOS dataframes
@@ -175,9 +158,6 @@ def Produce_data(raw_name, processed_name):
     full_df = pd.concat([xrd_df, dos_df], axis=1, sort=False)
 
     full_df.to_csv(processed_name + '.csv', sep='\t')
-
-
-# In[66]:
 
 
 def MPD_Data(bg_lower, bg_upper, raw_name, processed_name):

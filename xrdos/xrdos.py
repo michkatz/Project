@@ -39,7 +39,6 @@ def single_plot(x, y, figsize, title, xtitle, ytitle, xticks, yticks):
     plt.yticks(yticks[0], size=yticks[1])
     plt.xlabel(xtitle[0], size=xtitle[1])
     plt.ylabel(ytitle[0], size=ytitle[1])
-    ax1.set_xlim(0, 6)
     ax1.scatter(x, y, marker='.', alpha=0.7)
     return
 
@@ -56,10 +55,10 @@ def split_and_scale(df, n, yes):
     # Adding polynomial term columns
     predictors_polynomial = polynomialize(predictors, yes)
     # Scaling predictor data
-    predictors_scaled_polynomial, predictors_scaler_polynomial = scaling(predictors_polynomial) # noqa
+    predictors_scaled_polynomial, predictors_scaler_polynomial = scaling(predictors_polynomial)  # noqa
 
-    return properties, predictors_scaled_polynomial
-    return predictors_scaler_polynomial
+    return (properties, predictors_scaled_polynomial,
+            predictors_scaler_polynomial)
 
 
 def polynomialize(series, yes):
@@ -126,8 +125,8 @@ def train_model(df_train, df_validation, model, n, yes):
        Note: can only predict data which has been scaled with the scaler this
        function returns"""
     # generating scaled data and their respective scaler objects
-    t_properties, t_predictors_scaled, t_predictors_scaler = split_and_scale(df_train, n, yes) # noqa
-    v_properties, v_predictors_scaled, v_predictors_scaler = split_and_scale(df_validation, n, yes) # noqa
+    t_properties, t_predictors_scaled, t_predictors_scaler = split_and_scale(df_train, n, yes)  # noqa
+    v_properties, v_predictors_scaled, v_predictors_scaler = split_and_scale(df_validation, n, yes)  # noqa
     # supervised learning of predictors and properties to fit model,
     # note: keras does not take pd.DataFrames for
     # training, using .values fixes this
@@ -155,7 +154,7 @@ def model_prediction(test_data, fitted_model, scaler, n, yes):
     # predicting based on scaled input predictors
     prediction = fitted_model.predict(predictors_scaled)
     # calculating MSE
-    accuracy_metric = np.sqrt(metrics.mean_squared_error(properties, prediction)) # noqa
+    accuracy_metric = np.sqrt(metrics.mean_squared_error(properties, prediction))  # noqa
 
     return prediction, accuracy_metric
 
@@ -171,7 +170,7 @@ def neural_network(input_dimension):
     def model():
         model = Sequential()
         model.add(Dense(1, input_dim=input_dimension,
-                  kernel_initializer='normal', activation='relu'))
+                        kernel_initializer='normal', activation='relu'))
         model.add(Dense(20, kernel_initializer='normal', activation='relu'))
         model.add(Dense(1, kernel_initializer='normal'))
         # kernel_initializer = initial values of outputs
@@ -196,6 +195,23 @@ def coefficient_statistics(df):
     """Creates a linear regression model using statsmodels, used to get
        p values, confidence intervals and other metadata for models.
        This function has too specific of a use case for a test function."""
-    fit_object = smf.ols(formula='band_gap ~ amplitude_0 + amplitude_1 + amplitude_2 + amplitude_3 + amplitude_4 + amplitude_5 + amplitude_6 + amplitude_7 + amplitude_8 + amplitude_9 + two_theta_1+ two_theta_2 + two_theta_3 + two_theta_4 + two_theta_5 + two_theta_6 + two_theta_7 + two_theta_8 + two_theta_9', data=df) # noqa
+    fit_object = smf.ols(formula='band_gap ~ amplitude_0 + amplitude_1 + amplitude_2 + amplitude_3 + amplitude_4 + amplitude_5 + amplitude_6 + amplitude_7 + amplitude_8 + amplitude_9 + two_theta_1+ two_theta_2 + two_theta_3 + two_theta_4 + two_theta_5 + two_theta_6 + two_theta_7 + two_theta_8 + two_theta_9', data=df)  # noqa
     ft = fit_object.fit()
     return ft.summary()
+
+def train_test_split(df):
+    """This function splits the input dataframe into train,
+    validation and test groups. For our purposes, we used
+    a 70% train, 15% validation and 15% test.
+    df: dataframe containing all data to be
+    used for model.
+    returns df_train, df_val, df_test"""
+    df.drop(columns = 'Unnamed: 0',inplace = True)
+    train, test_and_val = sklearn.model_selection.train_test_split(df,
+test_size=.30)
+    test, val = sklearn.model_selection.train_test_split(test_and_val,
+test_size=.5)
+    df_train = pd.DataFrame(train)
+    df_val = pd.DataFrame(val)
+    df_test = pd.DataFrame(test)
+    return df_train, df_val, df_test

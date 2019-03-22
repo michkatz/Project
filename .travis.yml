@@ -1,8 +1,9 @@
 language: python
-sudo: false
+sudo: True
+dist: "xenial"
 
 python:
-  - 3.6
+  - 3.7
 
 branches:
   only:
